@@ -8,6 +8,7 @@ data/datasets/*.csv
 !data/datasets/.gitkeep
 !data/models/.gitkeep
 data/ToxiCN-repo/
+data/rule_experiments/
 .env
 .DS_Store
 *.tsbuildinfo

@@ -11,7 +11,11 @@
     "build:core": "npm run build -w @ruleforge/dsl-core",
     "import:toxicn": "npx tsx packages/server/src/scripts/import-toxicn.ts",
     "baseline:rules": "npx tsx packages/server/src/scripts/run-rule-baseline.ts",
-    "register:bert": "npx tsx packages/server/src/scripts/register-bert-baseline.ts"
+    "register:bert": "npx tsx packages/server/src/scripts/register-bert-baseline.ts",
+    "gen:candidates": "npx tsx packages/server/src/scripts/generate-rule-candidates.ts",
+    "eval:candidates": "npx tsx packages/server/src/scripts/evaluate-rule-candidates.ts",
+    "select:v2": "npx tsx packages/server/src/scripts/select-rule-set-v2.ts",
+    "test:v2": "npx tsx packages/server/src/scripts/run-rule-set-v2-test.ts"
   },
   "engines": {
     "node": ">=20"

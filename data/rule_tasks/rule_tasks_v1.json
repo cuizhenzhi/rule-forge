@@ -1,0 +1,66 @@
+[
+  {
+    "task_id": "T01",
+    "category": "明确威胁表达",
+    "nl_text": "文本若出现明确威胁表达，如\"弄死你\"\"杀了你\"\"打死你\"\"砍死你\"\"灭了你\"\"让你消失\"\"整死你\"\"收拾你\"\"揍死你\",判为不合规，高危。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "T02",
+    "category": "高确定性辱骂",
+    "nl_text": "文本若包含高确定性辱骂词，如\"傻逼\"\"脑残\"\"废物\"\"智障\"\"白痴\"\"蠢货\"\"贱人\"\"人渣\"\"败类\"\"畜生\"\"混蛋\"\"王八蛋\"\"狗东西\"\"变态\"\"神经病\"\"猪头\"\"垃圾\"\"死全家\",判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "T03",
+    "category": "变体/谐音辱骂",
+    "nl_text": "文本若存在辱骂词的符号插入、谐音或掩码变体，如\"傻*逼\"\"沙比\"\"sb\"\"煞笔\"\"脑c\"\"nmsl\"\"wdnmd\"\"tmd\"\"cnm\"\"你妈的\"\"他妈的\"\"尼玛\"\"捏麻麻的\"\"fw\"\"nt\"\"jb\"\"几把\"\"鲨bee\"\"乐色\"等,判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "T04",
+    "category": "第二人称定向侮辱",
+    "nl_text": "文本若出现第二人称指向的侮辱表达，如\"你这个废物\"\"你是猪\"\"你脑子有病\"\"你个白痴\"\"你去死吧\"\"你这垃圾\"\"你个蠢货\"\"你怎么这么蠢\",判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "T05",
+    "category": "重复辱骂词堆砌",
+    "nl_text": "文本中出现辱骂/攻击性词语超过2次（如一句话出现多个\"垃圾\"\"废物\"\"滚\"等），视为刻意辱骂堆砌，判为需审核。",
+    "candidate_types": ["strict", "loose"],
+    "action_type": "review",
+    "severity": "medium"
+  },
+  {
+    "task_id": "T06",
+    "category": "歧视性言论",
+    "nl_text": "文本若包含针对种族、地域、性别、性取向群体的歧视性攻击言论，如\"黑鬼\"\"母狗\"\"死gay\"\"穷b\"\"乡下人滚\"\"外地狗\",判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "T07",
+    "category": "阴阳怪气贬低",
+    "nl_text": "文本若以反讽、阴阳怪气方式贬低他人，如\"小仙女不高兴了\"\"大佬说的都对\"\"您可真厉害\"\"键盘侠真勇\"\"你可太行了\",判为需审核。",
+    "candidate_types": ["strict", "loose"],
+    "action_type": "review",
+    "severity": "medium"
+  },
+  {
+    "task_id": "T08",
+    "category": "人身攻击/诅咒",
+    "nl_text": "文本若包含对他人的诅咒或人身攻击表达，如\"活该\"\"报应\"\"不得好死\"\"全家暴毙\"\"遭天谴\"\"下地狱\"\"爆杀\"\"死一死\",判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  }
+]

@@ -107,6 +107,10 @@ export function createLlmAdapter(): LlmAdapter {
   switch (provider) {
     case 'chattree':
       return new ChatTreeAdapter(process.env.CHATTREE_URL);
+    case 'kimi': {
+      const { KimiAdapter } = require('./kimi.js') as typeof import('./kimi.js');
+      return new KimiAdapter(process.env.KIMI_API_KEY);
+    }
     case 'mock':
     default:
       return new MockLlmAdapter();
