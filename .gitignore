@@ -1,0 +1,13 @@
+node_modules/
+.venv/
+venv/
+dist/
+*.db
+data/models/*
+data/datasets/*.csv
+!data/datasets/.gitkeep
+!data/models/.gitkeep
+data/ToxiCN-repo/
+.env
+.DS_Store
+*.tsbuildinfo

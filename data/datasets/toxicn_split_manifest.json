@@ -1,0 +1,22 @@
+{
+  "dataset": "ToxiCN",
+  "dsl_version": "import_v1",
+  "split_mode": "single_csv_stratified_60_20_20",
+  "seed": 42,
+  "source_hashes": {
+    "csv_sha256": "f16995daed564235e9b20c5a522724b3bd815f357d13bf0155929a1ca006b7d6"
+  },
+  "split_file_hashes": {
+    "train": "1ee7f840645a81207682db2a2c185f7d29262eca325c21350d053597239af4dd",
+    "val": "ddb8c70ddd38382d1226edf2e6400bb89266fe3e78792b39ca53989b79eb8c21",
+    "test": "a40fec87c1af021d8ea156cfd265e17fc03b6153085aa1fc496e39c763ea9803"
+  },
+  "counts": {
+    "train": 7206,
+    "val": 2402,
+    "test": 2403
+  },
+  "label_mapping": "toxic 1 -> label 1 (non_compliant), else 0",
+  "gold_definition": "binary compliance vs ToxiCN toxic flag",
+  "note": "ToxiCN GitHub has no official train/test files; default is single-CSV stratified 60/20/20. Official mode: val only from official train."
+}

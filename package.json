@@ -1,0 +1,19 @@
+{
+  "name": "ruleforge",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @ruleforge/server",
+    "dev:web": "npm run dev -w @ruleforge/web",
+    "test": "npm run test -w @ruleforge/dsl-core",
+    "build:core": "npm run build -w @ruleforge/dsl-core",
+    "import:toxicn": "npx tsx packages/server/src/scripts/import-toxicn.ts",
+    "baseline:rules": "npx tsx packages/server/src/scripts/run-rule-baseline.ts",
+    "register:bert": "npx tsx packages/server/src/scripts/register-bert-baseline.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
