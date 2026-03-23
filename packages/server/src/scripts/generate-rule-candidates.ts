@@ -14,7 +14,7 @@ import {
   type OperatorName,
   type FullValidationResult,
 } from '@ruleforge/dsl-core';
-import { createLlmAdapter } from '../services/llm.js';
+import { createLlmAdapterAsync } from '../services/llm.js';
 import { buildGeneratePrompt, buildRepairPrompt } from '../services/prompt.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -72,7 +72,7 @@ function tryValidate(jsonStr: string): FullValidationResult {
 async function main(): Promise<void> {
   const tasksPath = join(REPO_ROOT, 'data', 'rule_tasks', 'rule_tasks_v1.json');
   const tasks = JSON.parse(readFileSync(tasksPath, 'utf-8')) as TaskDef[];
-  const llm = createLlmAdapter();
+  const llm = await createLlmAdapterAsync();
   const outDir = join(REPO_ROOT, 'data', 'rule_experiments');
 
   const allCandidates: CandidateRecord[] = [];

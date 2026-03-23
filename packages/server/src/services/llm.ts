@@ -102,15 +102,22 @@ export class ChatTreeAdapter implements LlmAdapter {
 
 // --- Factory ---
 
+export async function createLlmAdapterAsync(): Promise<LlmAdapter> {
+  const provider = process.env.LLM_PROVIDER ?? 'mock';
+  if (provider === 'kimi') {
+    const { KimiAdapter } = await import('./kimi.js');
+    return new KimiAdapter(process.env.KIMI_API_KEY);
+  }
+  return createLlmAdapter();
+}
+
 export function createLlmAdapter(): LlmAdapter {
   const provider = process.env.LLM_PROVIDER ?? 'mock';
   switch (provider) {
     case 'chattree':
       return new ChatTreeAdapter(process.env.CHATTREE_URL);
-    case 'kimi': {
-      const { KimiAdapter } = require('./kimi.js') as typeof import('./kimi.js');
-      return new KimiAdapter(process.env.KIMI_API_KEY);
-    }
+    case 'kimi':
+      throw new Error('Use createLlmAdapterAsync() for kimi provider');
     case 'mock':
     default:
       return new MockLlmAdapter();
