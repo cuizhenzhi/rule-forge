@@ -1,0 +1,42 @@
+[
+  {
+    "task_id": "FN01",
+    "category": "种族歧视隐语",
+    "nl_text": "文本若使用种族歧视的隐晦表达，如将某族群比作动物（\"猴\"\"猩猩\"\"牲口\"）、使用\"黑鬼\"\"黑皮\"\"黑x\"等蔑称、或表达\"嫁给黑人\"\"黑人+贬义\"等种族歧视含义，判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "FN02",
+    "category": "性别对立攻击",
+    "nl_text": "文本若包含性别对立攻击词汇，如\"女拳\"\"女权癌\"\"拳师\"\"中国女拳\"\"美国女拳\"\"母拳\"\"田园女权\"\"小仙女\"（用于讽刺语境）\"直男癌\"\"国男\"\"国女\"\"倒贴\"\"舔狗\"等，判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "FN03",
+    "category": "地域歧视",
+    "nl_text": "文本若包含地域歧视表达，如\"域黑\"\"黑河南\"\"黑上海\"\"黑东北\"\"黑北方\"\"苏北+贬义\"\"外地人滚\"\"乡下人\"\"穷省\"\"偷井盖\"\"÷剩\"（除省的谐音）等，判为不合规。",
+    "candidate_types": ["strict", "loose", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "FN04",
+    "category": "LGBT歧视",
+    "nl_text": "文本若包含针对LGBT群体的歧视表达，如\"基佬\"\"死gay\"\"搞基\"\"变态\"（用于指代性取向）\"恶心\"（用于描述LGBT）\"不正常\"（用于描述性取向）\"同性恋+贬义\"\"娘炮\"等，判为不合规。",
+    "candidate_types": ["strict", "loose"],
+    "action_type": "block",
+    "severity": "high"
+  },
+  {
+    "task_id": "FN05",
+    "category": "谐音/掩码脏词补充",
+    "nl_text": "文本若包含第一轮未覆盖的谐音/掩码脏词，如\"紫砂\"（自杀）\"醛\"（拳）\"田\"（甜）\"÷剩\"（除省）\"女醛\"\"茶党\"\"它们\"（用于指代人群的去人化）\"龌蹉\"\"恁\"等，判为不合规。",
+    "candidate_types": ["strict", "synonyms"],
+    "action_type": "block",
+    "severity": "high"
+  }
+]
