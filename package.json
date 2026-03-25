@@ -16,7 +16,8 @@
     "eval:candidates": "npx tsx packages/server/src/scripts/evaluate-rule-candidates.ts",
     "select:v2": "npx tsx packages/server/src/scripts/select-rule-set-v2.ts",
     "test:v2": "npx tsx packages/server/src/scripts/run-rule-set-v2-test.ts",
-    "fusion:baseline": "npx tsx packages/server/src/scripts/run-fusion-baseline.ts"
+    "fusion:baseline": "npx tsx packages/server/src/scripts/run-fusion-baseline.ts",
+    "ablations": "npx tsx packages/server/src/scripts/run-ablations.ts"
   },
   "engines": {
     "node": ">=20"
