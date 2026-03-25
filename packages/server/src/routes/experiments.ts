@@ -39,6 +39,19 @@ experimentsRouter.get('/compare/summary', (_req, res) => {
     /* ignore */
   }
 
+  const fusionRun = db
+    .prepare(
+      `SELECT * FROM experiment_runs WHERE fusion_config_json LIKE '%"route":"fusion"%' ORDER BY created_at DESC LIMIT 1`,
+    )
+    .get() as Record<string, unknown> | undefined;
+
+  let fusionConfig: Record<string, unknown> | null = null;
+  try {
+    if (fusionRun?.fusion_config_json) fusionConfig = JSON.parse(fusionRun.fusion_config_json as string);
+  } catch {
+    /* ignore */
+  }
+
   res.json({
     disclaimer: 'Primary comparison: test split only. val_f1 on BERT row is dev monitoring.',
     pure_rule: ruleRun
@@ -53,6 +66,13 @@ experimentsRouter.get('/compare/summary', (_req, res) => {
           experiment_run_id: bertRun.id,
           config: bertFusion,
           test_metrics: bertRun.id ? metricsMap(bertRun.id as string) : {},
+        }
+      : null,
+    fusion: fusionRun
+      ? {
+          experiment_run_id: fusionRun.id,
+          config: fusionConfig,
+          test_metrics: fusionRun.id ? metricsMap(fusionRun.id as string) : {},
         }
       : null,
   });

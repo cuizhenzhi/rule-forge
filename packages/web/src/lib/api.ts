@@ -108,18 +108,17 @@ export type GenerateResponse = {
   original_errors?: unknown[];
 };
 
+type ExperimentEntry = {
+  experiment_run_id: string;
+  config: Record<string, unknown> | null;
+  test_metrics: Record<string, number>;
+};
+
 export type ExperimentCompareResponse = {
   disclaimer: string;
-  pure_rule: {
-    experiment_run_id: string;
-    config: Record<string, unknown> | null;
-    test_metrics: Record<string, number>;
-  } | null;
-  bert: {
-    experiment_run_id: string;
-    config: Record<string, unknown> | null;
-    test_metrics: Record<string, number>;
-  } | null;
+  pure_rule: ExperimentEntry | null;
+  bert: ExperimentEntry | null;
+  fusion: ExperimentEntry | null;
 };
 
 export type DictSet = {

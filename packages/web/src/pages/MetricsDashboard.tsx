@@ -19,8 +19,37 @@ export default function MetricsDashboard() {
 
   const rule = data?.pure_rule;
   const bert = data?.bert;
+  const fusion = data?.fusion;
   const rm = rule?.test_metrics ?? {};
   const bm = bert?.test_metrics ?? {};
+  const fm = fusion?.test_metrics ?? {};
+
+  type CardProps = {
+    title: string;
+    entry: typeof rule;
+    m: Record<string, number>;
+    extra?: React.ReactNode;
+    placeholder?: string;
+  };
+
+  function MetricCard({ title, entry, m, extra, placeholder }: CardProps) {
+    return (
+      <div className="border rounded-lg p-6 bg-card">
+        <h3 className="text-sm font-medium text-muted-foreground">{title}</h3>
+        {entry ? (
+          <dl className="mt-4 space-y-1 text-sm">
+            <div className="flex justify-between"><dt>F1</dt><dd className="font-mono">{fmt(m.test_f1)}</dd></div>
+            <div className="flex justify-between"><dt>Precision</dt><dd className="font-mono">{fmt(m.test_precision)}</dd></div>
+            <div className="flex justify-between"><dt>Recall</dt><dd className="font-mono">{fmt(m.test_recall)}</dd></div>
+            <div className="flex justify-between"><dt>Accuracy</dt><dd className="font-mono">{fmt(m.test_accuracy)}</dd></div>
+            {extra}
+          </dl>
+        ) : (
+          <p className="mt-4 text-sm text-muted-foreground">{placeholder ?? 'No data'}</p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -28,75 +57,54 @@ export default function MetricsDashboard() {
       {err && <p className="text-sm text-destructive">API: {err} (start server)</p>}
       {data?.disclaimer && <p className="text-xs text-muted-foreground">{data.disclaimer}</p>}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="border rounded-lg p-6 bg-card">
-          <h3 className="text-sm font-medium text-muted-foreground">Pure Rule (test)</h3>
-          {rule ? (
-            <dl className="mt-4 space-y-1 text-sm">
-              <div className="flex justify-between">
-                <dt>F1</dt>
-                <dd className="font-mono">{fmt(rm.test_f1)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Precision</dt>
-                <dd className="font-mono">{fmt(rm.test_precision)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Recall</dt>
-                <dd className="font-mono">{fmt(rm.test_recall)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Accuracy</dt>
-                <dd className="font-mono">{fmt(rm.test_accuracy)}</dd>
-              </div>
-              <p className="text-xs text-muted-foreground pt-2">
-                mode: {(rule.config?.rule_positive_mode as string) ?? '—'}
-              </p>
-            </dl>
-          ) : (
-            <p className="mt-4 text-sm text-muted-foreground">Run npm run baseline:rules</p>
-          )}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <MetricCard
+          title="Pure Rule (test)"
+          entry={rule}
+          m={rm}
+          placeholder="Run npm run baseline:rules"
+          extra={
+            <p className="text-xs text-muted-foreground pt-2">
+              mode: {(rule?.config?.rule_positive_mode as string) ?? '—'}
+            </p>
+          }
+        />
 
-        <div className="border rounded-lg p-6 bg-card">
-          <h3 className="text-sm font-medium text-muted-foreground">Pure BERT (test)</h3>
-          {bert ? (
-            <dl className="mt-4 space-y-1 text-sm">
-              <div className="flex justify-between">
-                <dt>F1</dt>
-                <dd className="font-mono">{fmt(bm.test_f1)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Precision</dt>
-                <dd className="font-mono">{fmt(bm.test_precision)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Recall</dt>
-                <dd className="font-mono">{fmt(bm.test_recall)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt>Accuracy</dt>
-                <dd className="font-mono">{fmt(bm.test_accuracy)}</dd>
-              </div>
+        <MetricCard
+          title="Pure BERT (test)"
+          entry={bert}
+          m={bm}
+          placeholder="Train BERT + register:bert"
+          extra={
+            <>
               <div className="flex justify-between text-muted-foreground">
                 <dt>val F1 (dev)</dt>
                 <dd className="font-mono">{fmt(bm.val_f1)}</dd>
               </div>
               <p className="text-xs text-muted-foreground pt-2">
-                input: {(bert.config?.bert_input_field as string) ?? '—'} · threshold:{' '}
-                {String(bert.config?.decision_threshold ?? '—')} (
-                {String(bert.config?.threshold_source ?? '—')})
+                input: {(bert?.config?.bert_input_field as string) ?? '—'} · threshold:{' '}
+                {String(bert?.config?.decision_threshold ?? '—')} (
+                {String(bert?.config?.threshold_source ?? '—')})
               </p>
-            </dl>
-          ) : (
-            <p className="mt-4 text-sm text-muted-foreground">Train BERT + register:bert</p>
-          )}
-        </div>
-      </div>
+            </>
+          }
+        />
 
-      <div className="border rounded-lg p-6 bg-card">
-        <h3 className="text-sm font-medium text-muted-foreground mb-2">Rule + Model Fusion</h3>
-        <p className="text-sm text-muted-foreground">Not implemented (Step 2).</p>
+        <MetricCard
+          title="Rule + BERT Fusion (test)"
+          entry={fusion}
+          m={fm}
+          placeholder="Run npm run fusion:baseline"
+          extra={
+            fusion?.config ? (
+              <p className="text-xs text-muted-foreground pt-2">
+                strategy: {String(fusion.config.strategy ?? '—')} ·
+                rule decided: {String(fusion.config.rule_decided_count ?? '—')} ·
+                BERT fallback: {String(fusion.config.bert_fallback_count ?? '—')}
+              </p>
+            ) : null
+          }
+        />
       </div>
     </div>
   );
